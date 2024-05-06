@@ -27,14 +27,16 @@ public class Dot : MonoBehaviour
     {
         int val = int.Parse(this.textBox.GetComponent<TextMeshPro>().text);
 
-        if (val == 1 && !clicked)
+        if (clicked) return; //do nothing
+
+        if (val == 1)
         {
             AudioManager.Instance.PlayCorrectDot();
             clicked = true;
             this.gameObject.GetComponent<SpriteRenderer>().sprite = clickedSprite;
             textBox.GetComponent<TextAnimation>().disappear = true;
         }
-        else if (DotSpawner.Instance.PreviousDotClicked(val - 2) && !clicked)
+        else if (DotSpawner.Instance.PreviousDotClicked(val - 2))
         {
             AudioManager.Instance.PlayCorrectDot();
             clicked = true;
@@ -43,7 +45,6 @@ public class Dot : MonoBehaviour
             if (textBox != null)
                 textBox.GetComponent<TextAnimation>().disappear = true;
         }
-        else if (clicked) ; //do nothing
         else
         {
             AudioManager.Instance.PlayWrongDot();
